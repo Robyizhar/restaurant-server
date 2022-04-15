@@ -5,6 +5,7 @@ dotenv.config();
 module.exports = {
     serviceName: process.env.SERVICE_NAME, 
     rootPath: path.resolve(__dirname, '..'), 
+    secretKey: process.env.SECRET_KEY,
     //----- konfigurasi database ----//
     dbHost: process.env.DB_HOST,
     dbUser: process.env.DB_USER, 

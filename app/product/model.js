@@ -1,7 +1,7 @@
-// (1) import package `mongoose`
+// import package `mongoose`
 const mongoose = require('mongoose');
 
-// (2) ambil module `model` dan `Schema` dari package `mongoose`
+// ambil module `model` dan `Schema` dari package `mongoose`
 const { model, Schema } = mongoose;
 
 const productSchema = Schema({
@@ -19,7 +19,18 @@ const productSchema = Schema({
         default: 0
     },
     image_url: String,
-
+    // ------- relation dengan Category ----//
+    category: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Category'
+    },
+    tags: [
+        {
+            type: Schema.Types.ObjectId, 
+            ref: 'Tag'
+        }
+    ]
+    
 }, {timestamps: true});
 
 module.exports = model('Product', productSchema);

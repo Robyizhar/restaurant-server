@@ -5,9 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 // import router dari masing-masing module
+const Index = require('./routes/index');
 const ProductRouter = require('./app/product/router');
 const CategoryRouter = require('./app/category/router');
 const TagRouter = require('./app/tag/router');
+const AuthRouter = require('./app/auth/router');
+const { decodeToken } = require('./app/auth/middleware');
+const Area = require('./app/wilayah/router');
 
 var app = express();
 
@@ -20,11 +24,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(decodeToken());
 
 // gunakan router yang sudah di require
-app.use('/api', ProductRouter);
-app.use('/api', CategoryRouter);
-app.use('/api', TagRouter);
+app.use('/', Index);
+app.use('/', ProductRouter);
+app.use('/', CategoryRouter);
+app.use('/', TagRouter);
+app.use('/', AuthRouter);
+app.use('/', Area);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
