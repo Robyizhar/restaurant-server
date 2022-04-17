@@ -12,7 +12,8 @@ const TagRouter = require('./app/tag/router');
 const AuthRouter = require('./app/auth/router');
 const { decodeToken } = require('./app/auth/middleware');
 const Area = require('./app/wilayah/router');
-const deliveryRouter = require('./app/delivery-addresses/router');
+const DeliveryRouter = require('./app/delivery-addresses/router');
+const CartRouter = require('./app/cart/router')
 
 var app = express();
 
@@ -34,7 +35,8 @@ app.use('/', CategoryRouter);
 app.use('/', TagRouter);
 app.use('/', AuthRouter);
 app.use('/', Area);
-app.use('/', deliveryRouter);
+app.use('/', DeliveryRouter);
+app.use('/', CartRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

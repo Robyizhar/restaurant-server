@@ -43,8 +43,7 @@ async function store(req, res, next){
     try {
         let payload = req.body; 
         let user = req.user;
-        // buat instance `DeliveryAddress` berdasarkan payload dan
-        data `user` 
+        // buat instance `DeliveryAddress` berdasarkan payload dan data `user` 
         let address = new Model({...payload, user: user._id});
         // simpan ke instance di atas ke MongoDB
         await address.save(); 
@@ -118,4 +117,3 @@ async function destroy(req, res, next){
 }
 
 module.exports = { index, store, update, destroy }
-
