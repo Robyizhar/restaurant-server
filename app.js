@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
 // import router dari masing-masing module
 const Index = require('./routes/index');
@@ -15,6 +16,7 @@ const Area = require('./app/wilayah/router');
 const DeliveryRouter = require('./app/delivery-addresses/router');
 const CartRouter = require('./app/cart/router')
 const OrderRouter = require('./app/order/router');
+const InvoiceRouter = require('/app/invoice/router');
 
 var app = express();
 
@@ -27,6 +29,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//Menghindari CORS
+app.use(cors());
 app.use(decodeToken());
 
 // gunakan router yang sudah di require
@@ -39,6 +43,7 @@ app.use('/', Area);
 app.use('/', DeliveryRouter);
 app.use('/', CartRouter);
 app.use('/', OrderRouter);
+app.use('/', InvoiceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

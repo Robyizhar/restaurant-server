@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { model, Schema } = mongoose;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+const Invoice = require('../invoice/model');
 
 const orderSchema = Schema({
     status: {
@@ -27,6 +28,26 @@ const orderSchema = Schema({
         type: Schema.Types.ObjectId, ref: 'OrderItem'
     }]
     }, {timestamps: true
+});
+
+// Triger save ke invoice
+orderSchema.post('save', async function(){
+
+    let sub_total = this.order_items.reduce((sum, item) => sum += (item.price * item.qty), 0)
+
+    // buat objek `invoice` baru
+    let invoice = new Invoice({
+        user: this.user, 
+        order: this._id, 
+        sub_total: sub_total, 
+        delivery_fee: parseInt(this.delivery_fee),
+        total: parseInt(sub_total + this.delivery_fee), 
+        delivery_address: this.delivery_address
+    });
+    
+    // simpan ke MongoDB
+    await invoice.save();
+    
 });
 
 orderSchema.plugin(AutoIncrement, {inc_field: 'order_number'});
