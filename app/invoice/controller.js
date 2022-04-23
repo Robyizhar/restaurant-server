@@ -30,3 +30,5 @@ async function show(req, res, next){
         });
     }
 }
+
+module.exports = { show }

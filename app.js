@@ -16,7 +16,7 @@ const Area = require('./app/wilayah/router');
 const DeliveryRouter = require('./app/delivery-addresses/router');
 const CartRouter = require('./app/cart/router')
 const OrderRouter = require('./app/order/router');
-const InvoiceRouter = require('/app/invoice/router');
+const InvoiceRouter = require('./app/invoice/router');
 
 var app = express();
 

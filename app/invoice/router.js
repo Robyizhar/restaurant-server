@@ -1,4 +1,6 @@
 const router = require('express').Router();
-const controller = require('./controller');
-router.get('/invoices/:order_id', controller.show);
+const InvoiceController = require('./controller');
+
+router.get('/invoices/:order_id', InvoiceController.show);
+// router.delete('/products/:id', ProductController.destroy);
 module.exports = router;
