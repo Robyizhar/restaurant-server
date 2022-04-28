@@ -10,11 +10,13 @@ async function destroyAndMigrate(req, res, next){
 
         data.map( async (row) => {
 
-            delete row._id 
+            // delete row._id 
             delete row.createdAt
             delete row.updatedAt
             delete row.__v
 
+            row = {...row, _id: mongoose.Types.ObjectId(row._id.$oid)};
+            
             let tag = await Tag(row);
             tag.save();
         })
